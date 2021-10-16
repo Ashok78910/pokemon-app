@@ -15,6 +15,13 @@
     cursor: pointer;
     color: rgb(227, 227, 227);
   }
+  .notfound {
+    margin-top: 14rem;
+    text-align: center;
+  }
+  .favPoke{
+    margin-top: 16rem;
+  }
   
   /* Extra Background Colors */
   .grass {

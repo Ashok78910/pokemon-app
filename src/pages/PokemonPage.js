@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import axios from 'axios'
-import { Card, Row, Col } from 'react-bootstrap'
+import { Card, Row, Col, Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
 // Components
@@ -11,9 +11,6 @@ const PokemonPage = ({ match }) => {
   const [pokemonDetails, setPokemonDetails] = useState()
   const [loading, setLoading] = useState(true)
   
- 
-
-
   const id = match.params.id
 
   const getPokemon = useCallback(async (id) => {
@@ -32,8 +29,13 @@ const PokemonPage = ({ match }) => {
     getPokemon(id)
   }, [getPokemon, id])
 
+  
+
   return (
     <>
+    <Link to = '/'>
+      <Button className = 'btn-success my-3'>Go Back</Button>
+    </Link>
       {loading ? (
         <Loader />
       ) : (
@@ -46,7 +48,7 @@ const PokemonPage = ({ match }) => {
               <Link to={`/pokemon/${pokemonDetails.id}`}>
                 <Card.Img
                   style={{ width: '15rem' }}
-                  src={pokemonDetails.sprites.front_default}
+                  src={pokemonDetails.sprites.other.dream_world.front_default}
                   variant="top"
                 />
               </Link>

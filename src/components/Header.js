@@ -2,7 +2,8 @@ import React from 'react'
 import './Header.css'
 import {LinkContainer} from 'react-router-bootstrap'
 import {Navbar,Container,Nav} from 'react-bootstrap'
-import FavoriteIcon from '@mui/icons-material/Favorite';;
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import {Link} from 'react-router-dom'
 
 const Header = () => {
     return (
@@ -13,7 +14,7 @@ const Header = () => {
                         <Navbar.Brand>Pokemon App</Navbar.Brand>
                     </LinkContainer>
                     <Nav className="ms-auto">
-                        <Nav.Link className = 'link' href="/"><FavoriteIcon
+                        <Nav.Link as ={Link} to ="/favorite"><FavoriteIcon
                         />Favorite Pokemon</Nav.Link>
                     </Nav>
                 </Container>
