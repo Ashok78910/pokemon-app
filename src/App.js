@@ -22,7 +22,7 @@ function App() {
       <Route  path='/' component={HomePage} exact/>
       <Route path='/pokemon/:id' component={PokemonPage}/>
       <Route path='/favorite' component={FavoritePage}/>
-      <Route path="*" component = {NotFound}/>
+      <Route component = {NotFound}/>
       </Switch>
     </Container>
     </Suspense>

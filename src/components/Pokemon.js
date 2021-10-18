@@ -8,27 +8,14 @@ import firebase from 'firebase/compat/app'
 import Flip from 'react-reveal/Flip'
 
 const Pokemon = ({ pokemon }) => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   /******************* 
     @Purpose : Adding data to firestore
     @Parameter : {}
     @Author : Ashok
-    ******************/
-  // db.collection("favorite")
-  // .where("email", "==", state.email)
-  // .get()
-  // .then((doc) => {
-  //   if (!doc.empty) {
-  //     toast.error("user already exist");
-  //   } else {
-  //     db.collection("users")
-  //       .add(state)
-  //       .then(() => toast.success("user added successfully"))
-  //       .catch((err) => toast.error(err));
-  //     setTimeout(() => history.push("/"), 500);
-  //   }
-
+  ******************/
+ 
   const addtofav = ({ pokemon }) => {
     const data = {
       id: pokemon.id,

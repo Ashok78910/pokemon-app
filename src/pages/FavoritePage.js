@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect,useCallback } from 'react'
 import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { Card, Button, Row, Col } from 'react-bootstrap'
@@ -19,10 +19,7 @@ const FavoritePage = () => {
     @Parameter : {}
     @Author : ashok
     ******************/
-
-  useEffect(() => {
-    setLoading(true)
-    function fetchData() {
+  const fetchData = useCallback(() => {
       db.collection('favorite')
         .orderBy('timestamp', 'desc')
         .onSnapshot((snapshot) =>
@@ -33,10 +30,14 @@ const FavoritePage = () => {
             }))
           )
         )
-    }
-    fetchData()
-    setLoading(false)
-  }, [setLoading])
+    },[])
+
+    useEffect(() => {
+      setLoading(true)
+      fetchData()
+      setLoading(false)
+    }, [fetchData])
+   
 
   return (
     <>
