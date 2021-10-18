@@ -2,8 +2,6 @@ import React, { useState, useEffect, useCallback } from 'react'
 import axios from 'axios'
 import { Card, Row, Col, Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-
-// Components
 import Loader from '../components/Loader'
 
 const PokemonPage = ({ match }) => {

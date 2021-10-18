@@ -1,21 +1,23 @@
 import React from 'react'
 import { Card, Button, Col } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import { useDispatch} from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { addToFav } from '../action/FavAction'
 import { db } from '../firebase_config'
 import firebase from 'firebase/compat/app'
 import Flip from 'react-reveal/Flip'
+import { ToastContainer, toast } from 'react-toastify'
 
 const Pokemon = ({ pokemon }) => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
+  
 
   /******************* 
     @Purpose : Adding data to firestore
     @Parameter : {}
     @Author : Ashok
-  ******************/
- 
+  *****************/
+
   const addtofav = ({ pokemon }) => {
     const data = {
       id: pokemon.id,
@@ -23,8 +25,27 @@ const Pokemon = ({ pokemon }) => {
       photoUrl: pokemon.sprites.front_default || '',
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     }
-    db.collection('favorite').add(data)
-    dispatch(addToFav(data))
+
+    /******************* 
+    @Purpose : check item is already exist in firestore
+    @Parameter : {}
+    @Author : Ashok
+  *****************/
+
+    db.collection('favorite')
+      .where('id', '==', data.id)
+      .get()
+      .then((doc) => {
+        if (!doc.empty) {
+          toast.error('Favorite already exist')
+        } else {
+         
+          db.collection('favorite').add(data)
+          dispatch(addToFav(data))
+          toast.success('Favorite added')
+         
+        }
+      })
   }
 
   return (
@@ -50,12 +71,13 @@ const Pokemon = ({ pokemon }) => {
             </Link>
             <Col>
               <Button onClick={() => addtofav({ pokemon })}>
-                Add As Favorite
+               Add As Favorite
               </Button>
             </Col>
           </Card.Body>
         </Card>
       </Flip>
+      <ToastContainer />
     </>
   )
 }

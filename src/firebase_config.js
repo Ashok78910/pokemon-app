@@ -1,9 +1,10 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
+console.log(process.env.REACT_APP_API_KEY)
 
 const firebaseConfig = {
-  apiKey: "AIzaSyA0FRvxk3iiz1NfdRNptozMgmE7vvKGPh4",
+  apiKey: process.env.REACT_APP_API_KEY,
   authDomain: "pokemon-app-a2d55.firebaseapp.com",
   projectId: "pokemon-app-a2d55",
   storageBucket: "pokemon-app-a2d55.appspot.com",
