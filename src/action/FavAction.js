@@ -13,6 +13,8 @@ export const removeToFav = (id) => {
     type: REMOVE_FAV,
    id
   }
-  
 }
+
+
+ 
 

@@ -1,26 +1,24 @@
-import { ADD_FAV, REMOVE_FAV } from '../action/actionTypes'
+import { ADD_FAV, REMOVE_FAV} from '../action/actionTypes'
 import { db } from '../firebase_config'
-
 
 const initialState = {
   favorite: [],
 }
 
 const PokemonListReducer = (state = initialState, action) => {
-  
   switch (action.type) {
-  /******************* 
+    /******************* 
     @Purpose : Adding data to firestore
     @Parameter : {}
     @Author : Ashok
   ******************/
     case ADD_FAV:
-        return {
-       ...state,
-        favorite: action.payload
+      return {
+        ...state,
+        favorite: action.payload,
       }
 
-  /******************* 
+    /******************* 
     @Purpose : removing data to firestore
     @Parameter : {}
     @Author : Ashok
@@ -31,7 +29,7 @@ const PokemonListReducer = (state = initialState, action) => {
 
       return {
         ...state,
-        favorite: newFav
+        favorite: newFav,
       }
 
     default:

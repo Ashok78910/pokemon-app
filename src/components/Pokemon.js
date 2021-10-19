@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState,useCallback,useEffect} from 'react'
 import { Card, Button, Col } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
@@ -9,8 +9,28 @@ import Flip from 'react-reveal/Flip'
 import { ToastContainer, toast } from 'react-toastify'
 
 const Pokemon = ({ pokemon }) => {
+  const {id} = pokemon 
   const dispatch = useDispatch()
-  
+  const [btndata, setbtnData] = useState('')
+  console.log(btndata)
+
+  const fetchData = useCallback((id) => {
+    db.collection('favorite')
+    .where('id', '==', id)
+    .get()
+    .then((doc) => {
+      if (!doc.empty) {
+        setbtnData('Already Added')
+      }
+      else {
+        setbtnData('Add As Fav')
+      }
+  })}, [])
+
+  useEffect(() => {
+    fetchData(id)
+  }, [fetchData,id])
+
 
   /******************* 
     @Purpose : Adding data to firestore
@@ -18,10 +38,11 @@ const Pokemon = ({ pokemon }) => {
     @Author : Ashok
   *****************/
 
-  const addtofav = ({ pokemon }) => {
+const addtofav = ({ pokemon }) => {
     const data = {
       id: pokemon.id,
       name: pokemon.name,
+      added: false,
       photoUrl: pokemon.sprites.front_default || '',
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     }
@@ -38,12 +59,12 @@ const Pokemon = ({ pokemon }) => {
       .then((doc) => {
         if (!doc.empty) {
           toast.error('Favorite already exist')
+          console.log(data.added)
         } else {
-         
           db.collection('favorite').add(data)
           dispatch(addToFav(data))
+          setbtnData('Already added')
           toast.success('Favorite added')
-         
         }
       })
   }
@@ -70,9 +91,7 @@ const Pokemon = ({ pokemon }) => {
               </Card.Title>
             </Link>
             <Col>
-              <Button onClick={() => addtofav({ pokemon })}>
-               Add As Favorite
-              </Button>
+             <Button onClick={() => addtofav({ pokemon })}>{btndata}</Button>
             </Col>
           </Card.Body>
         </Card>
